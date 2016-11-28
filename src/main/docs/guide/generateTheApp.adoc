@@ -2,7 +2,7 @@ To get started with this profile, specify it when generating your app:
 
 [source,groovy]
 ----
-$ grails create-app myApp --profile=org.grails.profiles:react:2.0.1
+$ grails create-app myApp --profile=react
 ----
 
 Take a look at the directory structure - you will see a typical Gradle multi-project build, with separate client and server projects.
