@@ -1,11 +1,25 @@
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-  - "$HOME/.gradle"
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
 jdk:
 - oraclejdk8
-before_script:
-- rm -rf target
-script: "./travis-build.sh"
+addons:
+  chrome: stable
+  firefox: latest
+jobs:
+  include:
+    - stage: tests
+      script: 
+        - cd complete
+        - ./runtests.sh
+        - cd ..
+    - stage: build-guide
+      script: ./travis-build.sh
+    - stage: republish-guides
 env:
   global:
   - secure: YU9UMVRap7CmfqK1En1xcZ7TLVlVhO4Gs6bmheSzSCv8QYdMBpPL5fep6pmmtwsRqim+9246TGX0yhN8AlSEHORfPrcaW5l7Waz6QU2rWG8yjcdwIjxRH1aNE5VJIsP2QUIn0NVit1pArpywN4KncMANrYiM37ZcZ5+F9ffuPE2zN4AwQBVor/FM3xDv/7+2OLEMVUm90PfG0XhI6PDsHKvTcGhO807kzrakdEdkeT16eTw3gxxwARd/v6u0z3HhAGIU0efqBUZKGgMExcng1n7wXai+CKGdMHoDJabQJz+zEL7LMCtPosedVwSmqak7pZSsD7EzjqpNnfJs/IGUlZ+6XSHF4JS30UKDd/hlFcRKdwYVJqxvERR8pRmfm5FRTjPVKvaQ3g45T1KyTa1qF4Nl8ZYLGzXh181QsYgg/+haBiqw0jfhoNLuSpdC+M24JO5FRaKr93ptwAzNcKZxNrVX2ltJr3j+E2IeaFu0jaaZbjGaovJ7rctnK4UzFt63MsBzi1QwGzPr+3zmL82okrwFmZPo6HL8roz7+7dBP8oJYPOWaXEE/BFYz7FQtyJWHJl73YrSVIEiuXw/HPGNx9LAM7J2ecSw09EiicusIOTYMgBotudk1STIUDJd1lXna9u4LJ2Dc1fJ9YTKBB4pdYxG0CWR+t+k7Ygie+uAdD4=
