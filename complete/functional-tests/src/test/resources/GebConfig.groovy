@@ -1,16 +1,24 @@
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
-import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.firefox.FirefoxOptions
-import org.openqa.selenium.safari.SafariDriver
+import org.openqa.selenium.htmlunit.HtmlUnitDriver
 
 baseUrl = 'http://localhost:3000'
 
+// default to use htmlunit
+driver = {
+    HtmlUnitDriver htmlUnitDriver = new HtmlUnitDriver()
+    htmlUnitDriver.javascriptEnabled = true
+    htmlUnitDriver
+}
+
 environments {
 
-    // You need to configure in Safari -> Develop -> Allowed Remote Automation
-    safari {
-        driver = { new SafariDriver() }
+    htmlUnit {
+        driver = {
+            HtmlUnitDriver htmlUnitDriver = new HtmlUnitDriver()
+            htmlUnitDriver.javascriptEnabled = true
+            htmlUnitDriver
+        }
     }
 
     // run via “./gradlew -Dgeb.env=chrome iT”
@@ -25,19 +33,5 @@ environments {
             o.addArguments('headless')
             new ChromeDriver(o)
         }
-    }
-
-    // run via “./gradlew -Dgeb.env=firefoxHeadless iT”
-    firefoxHeadless {
-        driver = {
-            FirefoxOptions o = new FirefoxOptions()
-            o.addArguments('-headless')
-            new FirefoxDriver(o)
-        }
-    }
-
-    // run via “./gradlew -Dgeb.env=firefox iT”
-    firefox {
-        driver = { new FirefoxDriver() }
     }
 }
